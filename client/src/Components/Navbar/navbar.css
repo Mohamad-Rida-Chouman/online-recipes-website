@@ -1,0 +1,16 @@
+.navbar-main-container{
+    height: 10vh;
+}
+
+.button{
+    height: fit-content;
+    width: fit-content;
+}
+
+.navbar-title-container{
+    height: 10vh;
+}
+
+.navbar-left, .navbar-mid, .navbar-right{
+    flex: 1 1 0;
+}

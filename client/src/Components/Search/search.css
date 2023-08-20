@@ -1,0 +1,15 @@
+.search-form input {
+    border: none;
+    border-radius: 4px;
+    color: #000000;
+    background-color: #f0e1bc;
+    outline: none;
+}
+
+.search-form input:focus {
+    background-color: #D3A738;
+}
+
+.search-query {
+    color: #000000;
+}

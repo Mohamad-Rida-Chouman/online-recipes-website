@@ -1,0 +1,106 @@
+.flex{
+    display: flex;
+}
+
+.flex-col{
+    flex-direction: column;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.justify-around{
+    justify-content: space-around;
+}
+
+.justify-between{
+    justify-content: space-between;
+}
+
+.justify-start{
+    justify-content: flex-start;
+}
+
+.align-center{
+    align-items: center;
+}
+
+.align-start{
+    align-items: flex-start;
+}
+
+.gap-s{
+    gap: 0.5rem;
+}
+
+.gap-m{
+    gap: 1rem;
+}
+
+.gap-l{
+    gap: 1.5rem;
+}
+
+.gap-xl{
+    gap: 2rem;
+}
+
+.wrap{
+    flex-wrap: wrap;
+}
+
+.width-100{
+    width: 100%;
+}
+
+.width-80{
+    width: 80%;
+}
+
+.width-40{
+    width: 40%;
+}
+
+.width-20{
+    width: 20%;
+}
+
+
+.width-15{
+    width: 15%;
+}
+
+.padding-s{
+    padding: 0.5rem 1rem;
+}
+
+.padding-m{
+    padding: 1rem 1.5rem;
+}
+
+.padding-l{
+    padding: 1.5rem 2rem;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.border{
+    border: 1px solid #808080;
+    border-radius: 5px;
+}
+
+.card-border{
+    border: 1px solid #808080;
+    border-radius: 5px;
+}
+
+.card-border:hover{
+    background-color: #808080 0.8;
+    color: #ffffff;
+    transition: 0.5s;
+}

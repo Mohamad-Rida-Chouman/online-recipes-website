@@ -19,7 +19,6 @@ const Search = () => {
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
-            // event.preventDefault();
             handleSearch();
         }
     };

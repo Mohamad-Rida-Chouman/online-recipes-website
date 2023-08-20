@@ -94,12 +94,12 @@ img{
 }
 
 .border{
-    border: 1px solid #808080;
-    border-radius: 5px;
+    border-top: 1px solid #D3A738;
+    border-bottom: 1px solid #D3A738;
 }
 
 .card-border{
-    border: 1px solid #808080;
+    border: 1px solid #D3A738;
     border-radius: 5px;
 }
 

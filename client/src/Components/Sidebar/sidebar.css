@@ -1,0 +1,133 @@
+.sidebar {
+	width: 35vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background: #e1c47a;
+	display: grid;
+	place-items: center;
+}
+
+.close-div {
+	cursor: pointer;
+	position: absolute;
+	left: 1em;
+	top: 1em;
+}
+
+.add-button{
+	background-color: #d3a738;
+	color: #000000;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+.love{
+    padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.love-heart:before,
+#switch {
+	display: none;
+}
+
+.love-heart,
+.love-heart::after {
+	border-color: hsl(231deg 28% 86%);
+	border: 1px solid;
+	border-top-left-radius: 80px;
+	border-top-right-radius: 80px;
+	width: 8px;
+	height: 6px;
+	border-bottom: 0;
+}
+
+.round {
+	position: absolute;
+	z-index: 1;
+	width: 6px;
+	height: 6px;
+	background: hsl(0deg 0% 100%);
+	box-shadow: rgb(0 0 0 / 24%) 0px 0px 3px 0px;
+	border-radius: 100%;
+	left: 0px;
+	bottom: -1px;
+	transition: all 0.5s ease;
+	animation: check-animation2 0.5s forwards;
+}
+
+input:checked + label .round {
+	transform: translate(0px, 0px);
+	animation: check-animation 0.5s forwards;
+	background-color: hsl(0deg 0% 100%);
+}
+
+@keyframes check-animation {
+	0% {
+		transform: translate(0px, 0px);
+	}
+	50% {
+		transform: translate(0px, 5px);
+	}
+	100% {
+		transform: translate(5px, 5px);
+	}
+}
+
+@keyframes check-animation2 {
+	0% {
+		transform: translate(5px, 5px);
+	}
+	50% {
+		transform: translate(0px, 5px);
+	}
+	100% {
+		transform: translate(0px, 0px);
+	}
+}
+
+.love-heart {
+	box-sizing: border-box;
+	position: relative;
+	transform: rotate(-45deg) translate(-50%, -20px) scale(2.5);
+	display: block;
+	border-color: hsl(231deg 28% 86%);
+	cursor: pointer;
+	top: 0;
+}
+
+input:checked + .love-heart,
+input:checked + .love-heart::after,
+input:checked + .love-heart .bottom {
+	border-color: #d3a738;
+	box-shadow: inset 4px -3px 0px 1px #d3a738;
+}
+
+.love-heart::after,
+.love-heart .bottom {
+	content: '';
+	display: block;
+	box-sizing: border-box;
+	position: absolute;
+	border-color: hsl(231deg 28% 86%);
+}
+
+.love-heart::after {
+	right: -7px;
+	transform: rotate(90deg);
+	top: 5px;
+}
+
+.love-heart .bottom {
+	width: 8px;
+	height: 9px;
+	border-left: 1px solid;
+	border-bottom: 1px solid;
+	border-color: hsl(231deg 28% 86%);
+	left: -1px;
+	top: 3px;
+	border-radius: 0px 0px 0px 4px;
+}

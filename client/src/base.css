@@ -108,3 +108,7 @@ img{
     color: #ffffff;
     transition: 0.5s;
 }
+
+.no-margin{
+    margin: 0;
+}

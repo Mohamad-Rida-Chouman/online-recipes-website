@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../../base.css'
 import './navbar.css'
 import Button from "../Button/Button";
@@ -8,14 +8,13 @@ import AddRecipePopup from "../AddRecipePopup/AddRecipePopup";
 
 const Navbar = () => {
 
+    useEffect(() => {
+        toggleLoginLogout();
+      });
+
     //All recipes button logic
     const handleAllRecipes = () => {
         console.log('All recipes button clicked!');
-    };
-
-    //Create recipe button logic
-    const handleCreateRecipe = () => {
-        console.log('Create recipe button clicked!');
     };
 
     //Your collection button logic
@@ -23,10 +22,27 @@ const Navbar = () => {
         console.log('Your Collection button clicked!');
     };
 
+    const toggleLoginLogout = () => {
+        const loginLogoutBtn = document.getElementById('login-logout-btn');
+        if(authenticated){
+            loginLogoutBtn.innerHTML='Logout';
+        }
+        else{
+            loginLogoutBtn.innerHTML='Login';
+        }
+    }
+
     //Login/Logout button logic
     const handleLoginLogout = () => {
         console.log('Login/Logout button clicked!');
-        togglePopupLogin();
+        // setAuthenticated(!authenticated);
+        if(authenticated){
+            setAuthenticated(false);
+            toggleLoginLogout();
+        }
+        else{
+            togglePopupLogin();
+        }
     };
 
     const [showPopupLogin, setShowPopupLogin] = useState(false);
@@ -45,6 +61,8 @@ const Navbar = () => {
     const togglePopupRecipe = () => {
         setShowPopupRecipe(!showPopupRecipe);
     };
+
+    const [authenticated, setAuthenticated] = useState(true);
     
     return (
         <nav className="navbar-main-container flex justify-between justify-center align-center border padding-s">
@@ -73,7 +91,7 @@ const Navbar = () => {
                     Your Collection
                 </Button>
                 <Button onClick={handleLoginLogout}>
-                    Login
+                    <span id="login-logout-btn"></span>
                 </Button>
             </div>
             {showPopupLogin && (

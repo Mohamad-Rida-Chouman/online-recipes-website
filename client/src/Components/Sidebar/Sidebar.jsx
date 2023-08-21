@@ -33,7 +33,7 @@ const Sidebar = ({ close, name, cuisine, url }) => {
 	};
 
 	return (
-		<aside className="sidebar flex flex-col justigy-center align-center">
+		<aside className="sidebar flex flex-col justigy-center align-center padding-m">
 			<div className="close-div" onClick={() => close()}>
 				<IoMdCloseCircle color="#fff" size={50} />
 			</div>

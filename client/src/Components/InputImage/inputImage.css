@@ -1,0 +1,23 @@
+::file-selector-button {
+    display: none;
+  }
+
+.input-file{
+    display: none;
+}
+
+.input-file-label {
+	border: none;
+	border-radius: 5px;
+	background: #D3A738;
+	box-shadow: 2px 2px 6px #E1C47A, -2px -2px 6px #E1C47A;
+	transition: 0.3s;
+    text-align: center;
+}
+
+.input-file-label:focus {
+	outline-color: #e8e8e8;
+	background: #e8e8e8;
+	box-shadow: inset 2px 2px 6px #E1C47A, inset -2px -2px 6px #E1C47A;
+	transition: 0.3s;
+}

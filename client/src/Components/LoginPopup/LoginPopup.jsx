@@ -36,7 +36,7 @@ const LoginPopup = (props) => {
             <div className='popup'>
                 <div className='popup_inner flex flex-col justify-center align-center gap-m'> 
                     <h2>Welcome Back!</h2>
-                    <div className="input-container flex flex-col gap-m">
+                    <div className="input-container flex flex-col gap-m align-center">
                     
                     <Input onChange={e => setEmail(e.target.value)} value={email}>
                         E-mail:
@@ -49,7 +49,7 @@ const LoginPopup = (props) => {
                     <p>Not a user? &nbsp;&nbsp;&nbsp;<Button onClick={toggleSignup}>Signup</Button></p>    
                 </div>
             </div>
-            );
+        );
     }
 
     else {
@@ -57,7 +57,7 @@ const LoginPopup = (props) => {
             <div className='popup'>
                 <div className='popup_inner flex flex-col justify-center align-center gap-m'> 
                     <h2>Create an Account!</h2>
-                    <div className="input-container flex flex-col gap-m">
+                    <div className="input-container flex flex-col gap-m align-center">
                     <Input onChange={e => setUsername(e.target.value)} value={username}>
                         Username:
                     </Input>

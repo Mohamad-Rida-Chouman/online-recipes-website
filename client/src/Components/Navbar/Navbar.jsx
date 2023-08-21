@@ -4,6 +4,7 @@ import './navbar.css'
 import Button from "../Button/Button";
 import "../Button/button.css";
 import LoginPopup from "../LoginPopup/LoginPopup";
+import AddRecipePopup from "../AddRecipePopup/AddRecipePopup";
 
 const Navbar = () => {
 
@@ -25,13 +26,24 @@ const Navbar = () => {
     //Login/Logout button logic
     const handleLoginLogout = () => {
         console.log('Login/Logout button clicked!');
-        togglePopup();
+        togglePopupLogin();
     };
 
-    const [showPopup, setShowPopup] = useState(false);
+    const [showPopupLogin, setShowPopupLogin] = useState(false);
 
-    const togglePopup = () => {
-        setShowPopup(!showPopup);
+    const togglePopupLogin = () => {
+        setShowPopupLogin(!showPopupLogin);
+    };
+
+    const handleAddRecipe = () => {
+        console.log('Create Recipe Clicked!');
+        togglePopupRecipe();
+    };
+
+    const [showPopupRecipe, setShowPopupRecipe] = useState(false);
+
+    const togglePopupRecipe = () => {
+        setShowPopupRecipe(!showPopupRecipe);
     };
     
     return (
@@ -40,10 +52,17 @@ const Navbar = () => {
                 <Button onClick={handleAllRecipes}>
                     All Recipes
                 </Button>
-                <Button onClick={handleCreateRecipe}>
+                <Button onClick={handleAddRecipe}>
                     Create Recipe
                 </Button>
+                
             </div>
+            {showPopupRecipe && (
+                <AddRecipePopup
+                text="Close Me"
+                closePopup={togglePopupRecipe}
+                />
+            )}
             <div className="navbar-mid flex justify-center">
                 <div className="navbar-title-container flex">
                     <img src="logo.png" alt="" className="title-logo" />
@@ -57,10 +76,10 @@ const Navbar = () => {
                     Login
                 </Button>
             </div>
-            {showPopup && (
+            {showPopupLogin && (
                 <LoginPopup
                 text="Close Me"
-                closePopup={togglePopup}
+                closePopup={togglePopupLogin}
                 />
             )}
         </nav>

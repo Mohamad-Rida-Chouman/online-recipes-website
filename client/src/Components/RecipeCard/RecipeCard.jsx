@@ -20,8 +20,6 @@ const RecipeCard = ({ dish }) => {
 					></div>
 					<div className="card-content">
 						<h3>{dish.name}</h3>
-						<p>{dish.cuisine}</p>
-						<div className="ingredients">Ingredients: {dish.ingredients}</div>
 					</div>
 				</div>
 				<Sidebar url={String(window.location)} name={dish.name} cuisine={dish.cuisine} close={() => setToggle(false)} />
@@ -36,8 +34,6 @@ const RecipeCard = ({ dish }) => {
 				></div>
 				<div className="card-content">
 					<h3>{dish.name}</h3>
-					<p>{dish.cuisine}</p>
-					<div className="ingredients">Ingredients: {dish.ingredients}</div>
 				</div>
 			</div>
 		);

@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import '../../base.css'
 import './navbar.css'
 import Button from "../Button/Button";
 import "../Button/button.css";
+import LoginPopup from "../LoginPopup/LoginPopup";
 
 const Navbar = () => {
 
@@ -24,6 +25,13 @@ const Navbar = () => {
     //Login/Logout button logic
     const handleLoginLogout = () => {
         console.log('Login/Logout button clicked!');
+        togglePopup();
+    };
+
+    const [showPopup, setShowPopup] = useState(false);
+
+    const togglePopup = () => {
+        setShowPopup(!showPopup);
     };
     
     return (
@@ -49,6 +57,12 @@ const Navbar = () => {
                     Login
                 </Button>
             </div>
+            {showPopup && (
+                <LoginPopup
+                text="Close Me"
+                closePopup={togglePopup}
+                />
+            )}
         </nav>
     );
 }

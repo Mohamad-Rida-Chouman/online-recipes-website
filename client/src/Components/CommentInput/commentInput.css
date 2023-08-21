@@ -1,16 +1,16 @@
 .Message {
     width: 250px;
-    height: 30px;
+    height: 35px;
     border-radius: 8px;
-    background-color: #40414f;
+    background-color: #d3a738;
     transform: translate(0px, 0px);
-    box-shadow: 3px 3px #34343f;
+    box-shadow: 3px 3px #f0e1bc;
   }
   
   .MsgInput {
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 5px;
-    background-color: #40414f;
+    background-color: #d3a738;
     border: none;
     outline: none;
     width: 200px;
@@ -31,13 +31,13 @@
   }
   
   .SendSVG:hover {
-    background-color: #2b2b35;
+    background-color: #f0e1bc;
   }
   
   .l {
     position: absolute;
     width: 1%;
     height: 25px;
-    background-color: #2e2f38;
+    background-color: #f0e1bc;
     transform: translate(-15px, 3px);
   }

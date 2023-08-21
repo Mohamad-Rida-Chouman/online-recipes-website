@@ -4,6 +4,7 @@ import './sidebar.css';
 import '../../base.css';
 import SocialMedia from '../SocialMedia/SocialMedia';
 import CommentInput from '../CommentInput/CommentInput';
+import Comment from '../Comment/Comment';
 
 const Sidebar = ({ close, name, cuisine, url }) => {
 	const ingredients = [
@@ -12,6 +13,14 @@ const Sidebar = ({ close, name, cuisine, url }) => {
 		{ name: 'oregano', id: 3 },
 		{ name: 'spinach', id: 4 },
 		{ name: 'oat', id: 5 },
+	];
+
+    const comments = [
+		{ username: 'user1', text: "comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi " },
+		{ username: 'user2', text: "comment 2" },
+		{ username: 'user3', text: "comment 3" },
+		{ username: 'user4', text: "comment 4" },
+		{ username: 'user5', text: "comment 5" },
 	];
 
 	const handleAddIngredient = (id) => {
@@ -67,6 +76,14 @@ const Sidebar = ({ close, name, cuisine, url }) => {
 					<CommentInput />
 					<SocialMedia url={url} />
 				</div>
+                <div className="comments-list-continer width-80 flex flex-col align-center">
+                    <h4>Comments:</h4>
+                    <div className="comment-list flex flex-col width-80 gap-s">
+					{comments.map((comment) => (
+						<Comment name={comment.username} comment={comment.text}/>
+					))}
+				</div>
+                </div>
 			</div>
 		</aside>
 	);

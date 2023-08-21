@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 const LoginPopup = (props) => {
 
     const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [loginSignupState, setLoginSignupState] = useState(false)
 
@@ -56,7 +57,10 @@ const LoginPopup = (props) => {
             <div className='popup'>
                 <div className='popup_inner flex flex-col justify-center align-center gap-m'> 
                     <h2>Create an Account!</h2>
-                    <div className="input-container flex flex-col gap-m">  
+                    <div className="input-container flex flex-col gap-m">
+                    <Input onChange={e => setUsername(e.target.value)} value={username}>
+                        Username:
+                    </Input>
                     <Input onChange={e => setEmail(e.target.value)} value={email}>
                         E-mail:
                     </Input>

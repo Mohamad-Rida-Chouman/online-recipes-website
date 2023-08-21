@@ -1,6 +1,7 @@
 .sidebar {
 	width: 35vw;
 	height: 100vh;
+	overflow: auto;
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -8,6 +9,17 @@
 	background: #e1c47a;
 	display: grid;
 	place-items: center;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.sidebar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .close-div {

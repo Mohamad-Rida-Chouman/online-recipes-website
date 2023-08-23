@@ -7,10 +7,9 @@ const RecipeCard = ({ dish }) => {
 		<div className="main-card-container">
 			<Link to={`Recipe/${dish.id}`} className="link-button ">
 				<div className="card">
-					<div
-						className="card-image"
-						style={{ backgroundImage: `url(${dish.image})` }}
-					></div>
+					<div className="card-image">
+						<img src={dish.image} alt="" />
+					</div>
 					<div className="card-content flex justify-center align-center">
 						<h3>{dish.name}</h3>
 					</div>

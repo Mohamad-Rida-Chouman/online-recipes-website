@@ -8,13 +8,11 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ListDisplay from '../../Components/ListDisplay/ListDisplay';
 
-// CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-
 const YourCollection = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
-	const selectDate = ({ target }) => {
-		console.log(target);
+	const handleChangeDate = (selectedDate) => {
+		console.log(selectedDate);
+		setSelectedDate(selectedDate);
 	};
 	const [items, setItems] = useState(['oranges', 'apples', 'candy']);
 	return (
@@ -27,7 +25,7 @@ const YourCollection = () => {
 						<DatePicker
 							className="date-picker"
 							selected={selectedDate}
-							onChange={(date) => (setSelectedDate = date)}
+							onChange={handleChangeDate}
 						/>
 					</div>
 					<Button>Add Recipe</Button>

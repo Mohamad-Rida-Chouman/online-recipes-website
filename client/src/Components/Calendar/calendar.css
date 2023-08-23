@@ -1,0 +1,8 @@
+.calendar-container{
+    height: 500px;
+    z-index: 0;
+}
+
+.calendar{
+    height: 400px;
+}

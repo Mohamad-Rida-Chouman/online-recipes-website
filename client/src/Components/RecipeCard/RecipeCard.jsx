@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
 import '../../base.css';
 import './recipeCard.css';
-import Sidebar from '../Sidebar/Sidebar';
 import { Link } from 'react-router-dom';
 
 const RecipeCard = ({ dish }) => {

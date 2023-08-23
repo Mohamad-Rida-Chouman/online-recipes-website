@@ -16,6 +16,7 @@ html, body {
     bottom: 0;
     margin: auto;
     background-color: rgba(0,0,0, 0.5);
+    z-index: 10;
 }
 
 .popup_inner {

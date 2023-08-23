@@ -3,8 +3,8 @@ import './base.css';
 import './Components/Button/button.css';
 import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import YourCollection from './Pages/YourCollection';
-import AllRecipes from './Pages/AllRecipes';
+import YourCollection from './Pages/YourCollection/YourCollection';
+import AllRecipes from './Pages/AllRecipes/AllRecipes';
 import RecipeDetails from './Pages/RecipeDetails/RecipeDetails';
 
 function App() {

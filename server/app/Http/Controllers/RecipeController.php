@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\Image;
 use Illuminate\Support\Facades\Validator;
 
 class RecipeController extends Controller
@@ -66,10 +67,12 @@ class RecipeController extends Controller
     }
 
     public function assignImages(Request $request, Recipe $recipe) {
-        $imageIds = $request->get('image_ids');
-        if ($imageIds) {
-            $recipe->Images()->sync($imageIds);
-        }
+        $imageData = $request->get('image');
+        $image = new Image;
+        $image->image = $imageData;
+        $image->recipe_id = $recipe["id"];
+        echo($image);
+        $image->save();
     }
     public function assignIngredients(Request $request, Recipe $recipe) {
         $ingredientsIds = $request->get('ingredients_ids');

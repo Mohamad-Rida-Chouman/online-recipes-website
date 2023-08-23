@@ -30,6 +30,6 @@ class Recipe extends Model
     }
 
     public function Images(){
-        return  $this->hasMany(Image::class, 'recipe_id');
+        return $this->hasMany(Image::class, 'recipe_id');
     }
 }

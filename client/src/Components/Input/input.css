@@ -1,4 +1,4 @@
-.input {
+/* .input {
 	border: none;
 	border-radius: 5px;
 	background: #e8e8e8;
@@ -11,4 +11,30 @@
 	background: #e8e8e8;
 	box-shadow: inset 2px 2px 6px #c5c5c5, inset -2px -2px 6px #ffffff;
 	transition: 0.3s;
-}
+} */
+
+.recipe-input {
+	border: none;
+	border-radius: 5px;
+	background: #F3F4F6;
+	box-shadow: 2px 2px 6px rgba(197, 197, 197, 0.4), -2px -2px 6px #FFFFFF;
+	transition: 0.3s;
+	padding: 10px 15px;
+	font-size: 16px;
+	color: #333333;
+	width: 100%;
+  }
+  
+  .recipe-input:focus {
+	outline: none;
+	background: #F3F4F6;
+	box-shadow: inset 2px 2px 6px rgba(197, 197, 197, 0.4), inset -2px -2px 6px #FFFFFF;
+	transition: 0.3s;
+  }
+  
+  /* Additional styles for responsiveness */
+  @media (max-width: 768px) {
+	.recipe-input {
+	  font-size: 14px;
+	}
+  }

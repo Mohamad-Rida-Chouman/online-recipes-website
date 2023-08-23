@@ -1,4 +1,4 @@
-.button{
+/* .button{
     height: fit-content;
     width: fit-content;
     background-color: #FFFFFF;
@@ -15,4 +15,22 @@
     background-color: #D3A738;
     box-shadow: 0 0 0 5px #E1C47A;
     color: #FFFFFF;
-}
+} */
+
+.button {
+    height: fit-content;
+    width: fit-content;
+    background-color: #FFFFFF;
+    color: #D3A738;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #D3A738;
+    box-shadow: 0 0 0 5px #E1C47A;
+    color: #FFFFFF;
+  }

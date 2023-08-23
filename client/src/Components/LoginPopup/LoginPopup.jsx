@@ -11,6 +11,7 @@ const LoginPopup = (props) => {
 	const [password, setPassword] = useState('');
 	const [loginSignupState, setLoginSignupState] = useState(false);
 	const LOGIN_USER = 'http://127.0.0.1:8000/api/login';
+	const REGISTER_USER = 'http://127.0.0.1:8000/api/register';
 
 	async function handleLogin(e) {
 		e.preventDefault();
@@ -27,13 +28,23 @@ const LoginPopup = (props) => {
 		}
 	}
 
-	const handleSignup = (e) => {
+	async function handleSignup(e) {
 		e.preventDefault();
-		console.log('User Registered!');
+		const userAccount = {
+			username: username,
+			email: email,
+			password: password,
+		};
+		const response = await axios.post(`${REGISTER_USER}`, userAccount);
+		if (response) {
+			e.preventDefault();
+			console.log('User Registered!');
+		}
+
 		setLoginSignupState(!loginSignupState);
 		setEmail('');
 		setPassword('');
-	};
+	}
 
 	const toggleSignup = () => {
 		setEmail('');

@@ -13,7 +13,13 @@ class Ingredient extends Model
         'name',
     ];
 
-    public function ShoppingLists(){
-        return  $this->hasMany(Shopping_List::class, 'ingredient_id');
+    public function ShoppingLists(): BelongsToMany {
+        return $this->belongsToMany(User::class, 'shopping_lists', 'ingredient_id', 'user_id')
+                    ->withTimestamps();
+    }
+
+    public function IngredientRecipe(): BelongsToMany {
+        return $this->belongsToMany(Recipe::class, 'recipe_ingredients', 'ingredient_id', 'recipe_id')
+                    ->withTimestamps();
     }
 }

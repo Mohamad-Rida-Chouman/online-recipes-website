@@ -14,12 +14,19 @@ class Recipe extends Model
         'cuisine',
     ];
 
-    public function Likes(){
-        return  $this->hasMany(Like::class, 'recipe_id');
+    public function Liked(): BelongsToMany {
+        return $this->belongsToMany(User::class, 'likes', 'recipe_id', 'user_id')
+                    ->withTimestamps();
     }
 
-    public function Comments(){
-        return  $this->hasMany(Comment::class, 'recipe_id');
+    public function Commented(): BelongsToMany {
+        return $this->belongsToMany(User::class, 'comments', 'recipe_id', 'user_id')
+                    ->withTimestamps();
+    }
+
+    public function RecipeIngredient(): BelongsToMany {
+        return $this->belongsToMany(Ingredient::class, 'recipe_ingredients', 'recipe_id', 'ingredient_id')
+                    ->withTimestamps();
     }
 
     public function Images(){

@@ -12,6 +12,10 @@ const Navbar = () => {
 		toggleLoginLogout();
 	});
 
+	const [authenticated, setAuthenticated] = useState(
+		localStorage.getItem('access_token')
+	);
+
 	//All recipes button logic
 	const handleAllRecipes = () => {
 		console.log('All recipes button clicked!');
@@ -22,23 +26,24 @@ const Navbar = () => {
 		console.log('Your Collection button clicked!');
 	};
 
-	const toggleLoginLogout = () => {
+	function toggleLoginLogout() {
 		const loginLogoutBtn = document.getElementById('login-logout-btn');
-		if (authenticated) {
+		if (localStorage.getItem('access_token')) {
+			setAuthenticated(true);
 			loginLogoutBtn.innerHTML = 'Logout';
 		} else {
+			setAuthenticated(false);
 			loginLogoutBtn.innerHTML = 'Login';
 		}
-	};
+	}
 
 	//Login/Logout button logic
 	const handleLoginLogout = () => {
-		console.log('Login/Logout button clicked!');
-		// setAuthenticated(!authenticated);
 		if (authenticated) {
-			setAuthenticated(false);
+			localStorage.removeItem('access_token');
 			toggleLoginLogout();
 		} else {
+			toggleLoginLogout();
 			togglePopupLogin();
 		}
 	};
@@ -59,10 +64,6 @@ const Navbar = () => {
 	const togglePopupRecipe = () => {
 		setShowPopupRecipe(!showPopupRecipe);
 	};
-
-	const [authenticated, setAuthenticated] = useState(
-		localStorage.getItem('access_token')
-	);
 
 	return (
 		<nav className="navbar-main-container flex justify-between justify-center align-center border padding-s">

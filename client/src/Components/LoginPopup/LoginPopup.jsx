@@ -41,8 +41,14 @@ const LoginPopup = (props) => {
 		setLoginSignupState(!loginSignupState);
 	};
 
+	function hidePopup() {
+		console.log('blocker clicked');
+		props.closePopup();
+	}
+
 	return (
 		<div className="popup">
+			<div className="blocker" onClick={hidePopup}></div>
 			{loginSignupState ? (
 				<div className="popup_inner flex flex-col justify-center align-center gap-m">
 					<h2>Create an Account!</h2>
@@ -72,6 +78,7 @@ const LoginPopup = (props) => {
 				</div>
 			) : (
 				<div className="popup">
+					<div className="blocker" onClick={hidePopup}></div>
 					<div className="popup_inner flex flex-col justify-center align-center gap-m">
 						<h2>Welcome Back!</h2>
 						<div className="input-container flex flex-col gap-m align-center">

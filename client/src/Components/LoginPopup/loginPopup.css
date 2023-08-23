@@ -49,8 +49,18 @@ html, body {
     align-items: center;
     z-index: 10;
   }
+
+  .blocker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: ' ';
+  }
   
   .popup_inner {
+    z-index: 20;
     position: relative;
     width: 70%;
     max-width: 500px;

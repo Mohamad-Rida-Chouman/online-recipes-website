@@ -1,0 +1,23 @@
+.left-collection-container{
+    flex: 3 1 0;
+}
+
+.right-collection-container{
+    flex: 1 1 0;
+}
+
+.date-picker-container{
+    z-index: 1;
+    height: 100%;
+}
+
+.date-picker{
+    padding: 1rem 0rem 1rem 0rem;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.add-events{
+    border: 2px solid #D3A738;
+    border-radius: 5px;
+}

@@ -5,6 +5,7 @@ import Button from "../Button/Button";
 import "../Button/button.css";
 import LoginPopup from "../LoginPopup/LoginPopup";
 import AddRecipePopup from "../AddRecipePopup/AddRecipePopup";
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -67,9 +68,12 @@ const Navbar = () => {
     return (
         <nav className="navbar-main-container flex justify-between justify-center align-center border padding-s">
             <div className="navbar-left flex gap-l justify-start">
+                <div>
                 <Button onClick={handleAllRecipes}>
-                    All Recipes
+                    <Link to="/" className='link-button flex justify-center align-center'>All Recipes</Link>
                 </Button>
+                </div>
+                
                 <Button onClick={handleAddRecipe}>
                     Create Recipe
                 </Button>
@@ -88,7 +92,10 @@ const Navbar = () => {
             </div>
             <div className="navbar-right flex gap-l justify-end">
                 <Button onClick={handleYourCollection}>
-                    Your Collection
+                <div>
+                <Link to="/YourCollection" className='link-button flex justify-center'>Your Collection</Link>
+                </div>
+                    
                 </Button>
                 <Button onClick={handleLoginLogout}>
                     <span id="login-logout-btn"></span>

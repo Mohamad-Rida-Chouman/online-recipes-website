@@ -8,6 +8,7 @@
     width: 100px;
     height: 45px;
     transition: .3s;
+    cursor: pointer;
 }
 
 .button:hover {

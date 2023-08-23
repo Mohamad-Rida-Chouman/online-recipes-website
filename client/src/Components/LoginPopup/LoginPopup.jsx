@@ -19,12 +19,16 @@ const LoginPopup = (props) => {
 			email: email,
 			password: password,
 		};
-		const response = await axios.post(`${LOGIN_USER}`, userAccount);
-		if (response) {
-			e.preventDefault();
-			localStorage.setItem('access_token', response.data.token);
-			console.log('User Logged In!');
-			props.closePopup();
+		try {
+			const response = await axios.post(`${LOGIN_USER}`, userAccount);
+			if (response) {
+				e.preventDefault();
+				localStorage.setItem('access_token', response.data.token);
+				console.log('User Logged In!');
+				props.closePopup();
+			}
+		} catch {
+			document.getElementById('login-failed').style.display = 'block';
 		}
 	}
 
@@ -35,15 +39,18 @@ const LoginPopup = (props) => {
 			email: email,
 			password: password,
 		};
-		const response = await axios.post(`${REGISTER_USER}`, userAccount);
-		if (response) {
-			e.preventDefault();
-			console.log('User Registered!');
+		try {
+			const response = await axios.post(`${REGISTER_USER}`, userAccount);
+			if (response) {
+				e.preventDefault();
+				console.log('User Registered!');
+				setLoginSignupState(!loginSignupState);
+				setEmail('');
+				setPassword('');
+			}
+		} catch {
+			document.getElementById('register-failed').style.display = 'block';
 		}
-
-		setLoginSignupState(!loginSignupState);
-		setEmail('');
-		setPassword('');
 	}
 
 	const toggleSignup = () => {
@@ -81,6 +88,9 @@ const LoginPopup = (props) => {
 						</Input>
 					</div>
 
+					<div id="register-failed" className="register-failed">
+						Please Enter Correct Values
+					</div>
 					<Button onClick={handleSignup}>Signup</Button>
 					<p>
 						Already a User? &nbsp;&nbsp;&nbsp;
@@ -102,6 +112,9 @@ const LoginPopup = (props) => {
 							>
 								Password:
 							</Input>
+						</div>
+						<div id="login-failed" className="login-failed">
+							Please Enter Correct Credentials
 						</div>
 						<Button onClick={handleLogin}>Login</Button>
 						<p>

@@ -15,7 +15,7 @@ class Recipe extends Model
         'cuisine',
     ];
 
-    public function Liked(): BelongsToMany {
+    public function Liked() {
         return $this->belongsToMany(User::class, 'likes', 'recipe_id', 'user_id')
                     ->withTimestamps();
     }

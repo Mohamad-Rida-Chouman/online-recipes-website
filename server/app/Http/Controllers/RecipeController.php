@@ -118,4 +118,26 @@ class RecipeController extends Controller
         $comment->text = $commentText;
         $comment->save();
     }
+
+    public function checkLiked(Request $request, Recipe $recipe){
+        $user_id = Auth::id();
+        $recipe_id = $recipe["id"];
+        $liked = Recipe::whereHas('Liked', function ($query) use ($user_id, $recipe_id) {
+            $query->where('user_id', $user_id)
+                  ->where('recipe_id', $recipe_id);
+        })->exists();
+        return response()->json([
+            'status' => 'Success',
+            'value' => $liked,
+        ], 200);
+    }
+
+    public function likeRecipe(Request $request, Recipe $recipe){
+        $user_id = Auth::id();
+        $recipe->liked()->attach($user_id);
+    }
+    public function unlikeRecipe(Request $request, Recipe $recipe){
+        $user_id = Auth::id();
+        $recipe->liked()->detach($user_id);
+    }
 }

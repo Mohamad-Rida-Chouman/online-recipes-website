@@ -102,7 +102,7 @@ class RecipeController extends Controller
     }
 
     public function getOneRecipe(Recipe $recipe){
-        $recipeWithImages = Recipe::with('images')->find($recipe);
-    return $recipeWithImages;
+        $result_recipe = Recipe::with(['images', 'RecipeIngredient'])->find($recipe);
+        return $result_recipe;
     }
 }

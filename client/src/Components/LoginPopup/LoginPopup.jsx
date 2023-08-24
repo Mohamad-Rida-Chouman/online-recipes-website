@@ -21,7 +21,7 @@ const LoginPopup = (props) => {
 		};
 		try {
 			const response = await axios.post(`${LOGIN_USER}`, userAccount);
-			console.log(response.data.authorization);
+
 			if (response) {
 				e.preventDefault();
 				localStorage.setItem('access_token', response.data.authorization);

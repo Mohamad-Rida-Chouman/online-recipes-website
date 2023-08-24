@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Recipe extends Model
 {
@@ -19,9 +20,13 @@ class Recipe extends Model
                     ->withTimestamps();
     }
 
-    public function Commented(): BelongsToMany {
+    public function CommentingUsers() {
         return $this->belongsToMany(User::class, 'comments', 'recipe_id', 'user_id')
                     ->withTimestamps();
+    }
+
+    public function Comments() {
+        return $this->hasMany(Comment::class, 'recipe_id');
     }
 
     public function RecipeIngredient() {

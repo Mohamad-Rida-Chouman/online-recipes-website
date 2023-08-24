@@ -3,11 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Comment;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -54,22 +55,26 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function ShoppingLists(): BelongsToMany {
+    public function ShoppingLists(){
         return $this->belongsToMany(Ingredient::class, 'shopping_lists', 'user_id', 'ingredient_id')
                     ->withTimestamps();
     }
 
-    public function Likes(): BelongsToMany {
+    public function Likes(){
         return $this->belongsToMany(Recipe::class, 'likes', 'user_id', 'recipe_id')
                     ->withTimestamps();
     }
 
-    public function Comments(): BelongsToMany {
-        return $this->belongsToMany(Recipe::class, 'comments', 'user_id', 'recipe_id')
-                    ->withTimestamps();
-    }
+    // public function Comments(){
+    //     return $this->belongsToMany(Recipe::class, 'comments', 'user_id', 'recipe_id')
+    //                 ->withTimestamps();
+    // }
 
     public function Schedules(){
         return  $this->hasMany(Schedule::class, 'user_id');
+    }
+
+    public function userComments() {
+        return $this->hasMany(Comment::class, 'user_id');
     }
 }

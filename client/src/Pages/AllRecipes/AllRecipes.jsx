@@ -1,65 +1,41 @@
-import CardsList from "../../Components/CardsList/CardsList";
-import Search from "../../Components/Search/Search";
+import { useEffect, useState } from 'react';
+import CardsList from '../../Components/CardsList/CardsList';
+import Search from '../../Components/Search/Search';
+import axios from 'axios';
+
 const AllRecipes = () => {
-    const dishes = [
-		{
-			id:1,
-			name: 'Spaghetti Carbonara',
-			cuisine: 'Italian',
-			image:
-				'https://images.unsplash.com/photo-1572441713132-c542fc4fe282?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80',
-			ingredients: 'Spaghetti, eggs, pancetta, Parmesan cheese, black pepper',
-		},
-		{
-			id:2,
-			name: 'Chicken Tikka Masala',
-			cuisine: 'Indian',
-			image:
-				'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=384&q=80',
-			ingredients: 'Chicken, yogurt, tomato sauce, spices',
-		},
-		{
-			id:3,
-			name: 'Sushi',
-			cuisine: 'Japanese',
-			image:
-				'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=327&q=80',
-			ingredients: 'Rice, fish, seaweed, soy sauce, wasabi',
-		},
-		{
-			id:4,
-			name: 'Burger',
-			cuisine: 'American',
-			image:
-				'https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=465&q=80',
-			ingredients:
-				'Bun, ground beef patty, cheese, lettuce, tomato, onion, pickles, ketchup, mustard',
-		},
-		{
-			id:5,
-			name: 'Tacos',
-			cuisine: 'Mexican',
-			image:
-				'https://images.unsplash.com/photo-1574782090889-7567420ce7e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=465&q=80',
-			ingredients:
-				'Tortillas, meat (beef, chicken, pork), salsa, guacamole, cheese, lettuce',
-		},
-		{
-			id:6,
-			name: 'Tacos',
-			cuisine: 'Mexican',
-			image:
-				'https://images.unsplash.com/photo-1574782090889-7567420ce7e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=465&q=80',
-			ingredients:
-				'Tortillas, meat (beef, chicken, pork), salsa, guacamole, cheese, lettuce',
-		},
-	];
-    return (
-        <div>
-            <Search />
-	    	<CardsList dishes={dishes} />
-        </div>
-    );
-}
- 
+	const [dishes, setDishes] = useState([]);
+	useEffect(() => {
+		loadRecipes();
+	}, []);
+
+	const RECIPES_URL = 'http://127.0.0.1:8000/api/recipe_with_images';
+	async function loadRecipes() {
+		try {
+			const response = await axios.get(RECIPES_URL);
+			if (response) {
+				const dishes_array = response.data.map((recipe) => ({
+					id: recipe.id,
+					name: recipe.name,
+					cuisine: recipe.cuisine,
+					image: recipe.images.length > 0 ? recipe.images[0].image : null,
+				}));
+				setDishes(dishes_array);
+			}
+		} catch {
+			console.log('failed to load recipes');
+		}
+	}
+	// const handleRecipeAdded = () => {
+	// 	loadRecipes();
+	// };
+
+	return (
+		<div>
+			<Search />
+			<CardsList dishes={dishes} />
+		</div>
+	);
+};
+
 export default AllRecipes;

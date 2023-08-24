@@ -5,9 +5,10 @@ import Button from '../Button/Button';
 import '../Button/button.css';
 import LoginPopup from '../LoginPopup/LoginPopup';
 import AddRecipePopup from '../AddRecipePopup/AddRecipePopup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+	const navigate = useNavigate();
 	useEffect(() => {
 		toggleLoginLogout();
 	});
@@ -63,6 +64,9 @@ const Navbar = () => {
 
 	const togglePopupRecipe = () => {
 		setShowPopupRecipe(!showPopupRecipe);
+		if (showPopupRecipe) {
+			navigate('/');
+		}
 	};
 
 	return (
@@ -78,8 +82,16 @@ const Navbar = () => {
 						</Link>
 					</Button>
 				</div>
-
-				<Button onClick={handleAddRecipe}>Create Recipe</Button>
+				<div>
+					<Button onClick={handleAddRecipe}>
+						<Link
+							to="/blank"
+							className="link-button flex justify-center align-center"
+						>
+							Create Recipe
+						</Link>
+					</Button>
+				</div>
 			</div>
 			{showPopupRecipe && (
 				<AddRecipePopup text="Close Me" closePopup={togglePopupRecipe} />

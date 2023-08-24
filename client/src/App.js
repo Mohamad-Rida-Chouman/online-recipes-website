@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import YourCollection from './Pages/YourCollection/YourCollection';
 import AllRecipes from './Pages/AllRecipes/AllRecipes';
 import RecipeDetails from './Pages/RecipeDetails/RecipeDetails';
+import Blank from './Pages/Blank/Blank';
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 				<div className="content">
 					<Routes>
 						<Route path="/" element={<AllRecipes />} />
+						<Route path="/blank" element={<Blank />} />
 						<Route path="/YourCollection" element={<YourCollection />} />
 						<Route path="/Recipe/:id" element={<RecipeDetails />} />
 					</Routes>

@@ -18,7 +18,10 @@ const AddRecipePopup = (props) => {
 		e.preventDefault();
 
 		try {
-			const recipe_response = await addRecipe(name, cuisine);
+			const recipe_response = await addRecipe(
+				name.toLowerCase(),
+				cuisine.toLowerCase()
+			);
 			const recipe_id = recipe_response.data.id;
 			console.log(ingredients);
 			const ingredients_response = await addIngredients(ingredients, recipe_id);
@@ -29,6 +32,7 @@ const AddRecipePopup = (props) => {
 			}
 
 			props.closePopup();
+			// window.location.reload();
 		} catch (error) {
 			console.error('Error adding ingredients:', error);
 			document.getElementById('register-failed').style.display = 'block';

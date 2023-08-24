@@ -100,4 +100,9 @@ class RecipeController extends Controller
         $recipesWithImages = Recipe::with('images')->get();
         return $recipesWithImages;
     }
+
+    public function getOneRecipe(Recipe $recipe){
+        $recipeWithImages = Recipe::with('images')->find($recipe);
+    return $recipeWithImages;
+    }
 }

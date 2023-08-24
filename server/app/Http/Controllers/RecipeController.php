@@ -94,5 +94,10 @@ class RecipeController extends Controller
         }, $ingredients);
 
         $recipe->RecipeIngredient()->sync($ingredientIds);
-        }
+    }
+
+    public function getRecipesWithImages(){
+        $recipesWithImages = Recipe::with('images')->get();
+        return $recipesWithImages;
+    }
 }

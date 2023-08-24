@@ -10,72 +10,84 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    public function unauthorized(Request $request){
+        return response()->json([
+            'status' => 'Error',
+            'message' => 'Unauthorized',
+        ], 200);
     }
 
-    public function login(Request $request)
-    {
+    public function profile(Request $request){
+        return response()->json([
+            'status' => 'Success',
+            'data' => Auth::user(),
+        ], 200);
+    }
+
+    public function login(Request $request){
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
+
         $credentials = $request->only('email', 'password');
+
         $token = Auth::attempt($credentials);
-        
+ 
         if (!$token) {
             return response()->json([
+                'status' => 'Error',
                 'message' => 'Unauthorized',
             ], 401);
         }
 
         $user = Auth::user();
+        $user->token = $token;
+        
         return response()->json([
-            'user' => $user,
-            'authorization' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
-        ]);
+                'status' => 'Success',
+                'data' => $user
+            ]);
+
     }
 
-    public function register(Request $request)
-    {
+    public function register(Request $request){
         $request->validate([
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
         ]);
 
-        $user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $user = new User; 
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        $token = Auth::login($user);
+        $user->token = $token;
 
         return response()->json([
-            'message' => 'User created successfully',
-            'user' => $user
+            'status' => 'Success',
+            'data' => $user
         ]);
     }
 
-    public function logout()
-    {
+    public function logout(){
         Auth::logout();
         return response()->json([
+            'status' => 'success',
             'message' => 'Successfully logged out',
         ]);
     }
 
-    public function refresh()
-    {
+    public function refresh() {
+        $user = Auth::user();
+        $user->token = Auth::refresh();
+
         return response()->json([
-            'user' => Auth::user(),
-            'authorisation' => [
-                'token' => Auth::refresh(),
-                'type' => 'bearer',
-            ]
+            'status' => 'success',
+            'data' => $user
         ]);
     }
 }

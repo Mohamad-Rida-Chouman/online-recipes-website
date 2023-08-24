@@ -26,6 +26,7 @@ Route::post('recipes/{recipe}/images', [RecipeController::class, 'assignImages']
 Route::post('recipes/{recipe}/ingredients', [RecipeController::class, 'assignIngredients']);
 Route::get('recipe_with_images', [RecipeController::class, 'getRecipesWithImages']);
 Route::get('recipes/{recipe}', [RecipeController::class, 'getOneRecipe']);
+Route::post('comment/{recipe}', [RecipeController::class, 'addComment']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

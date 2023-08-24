@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Recipe;
 use App\Models\Image;
+use App\Models\Recipe;
+use App\Models\Comment;
 use App\Models\Ingredient;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RecipeController extends Controller
@@ -104,5 +106,16 @@ class RecipeController extends Controller
     public function getOneRecipe(Recipe $recipe){
         $result_recipe = Recipe::with(['images', 'RecipeIngredient', 'comments', 'CommentingUsers'])->find($recipe);
         return $result_recipe;
+    }
+
+    public function addComment(Request $request, Recipe $recipe){
+        $user_id = Auth::id();
+        $commentText = $request->get('comment');
+        
+        $comment = new Comment;
+        $comment->user_id = $user_id;
+        $comment->recipe_id = $recipe["id"];
+        $comment->text = $commentText;
+        $comment->save();
     }
 }

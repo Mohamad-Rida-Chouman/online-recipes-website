@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Image;
+use App\Models\Ingredient;
 use Illuminate\Support\Facades\Validator;
 
 class RecipeController extends Controller
@@ -71,13 +72,27 @@ class RecipeController extends Controller
         $image = new Image;
         $image->image = $imageData;
         $image->recipe_id = $recipe["id"];
-        echo($image);
         $image->save();
     }
     public function assignIngredients(Request $request, Recipe $recipe) {
-        $ingredientsIds = $request->get('ingredients_ids');
-        if ($ingredientsIds) {
-            $recipe->RecipeIngredient()->sync($ingredientsIds);
+        $ingredientNames = strtolower($request->get('ingredients'));
+        $ingredientNames = array_map('trim', explode(',', $ingredientNames));
+        $ingredients = [];
+        foreach ($ingredientNames as $ingredientName) {
+            $ingredient = Ingredient::where('name', '=', $ingredientName)->first();
+            
+            if (!$ingredient) {
+                $ingredient = new Ingredient;
+                $ingredient->name = $ingredientName;
+                $ingredient->save();
+            }
+            
+            $ingredients[] = $ingredient;
         }
-    }
+        $ingredientIds = array_map(function ($ingredient) {
+            return $ingredient->id;
+        }, $ingredients);
+
+        $recipe->RecipeIngredient()->sync($ingredientIds);
+        }
 }

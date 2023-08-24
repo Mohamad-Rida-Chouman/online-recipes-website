@@ -1,38 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './recipeDetails.css';
 import '../../base.css';
 import SocialMedia from '../../Components/SocialMedia/SocialMedia';
 import CommentInput from '../../Components/CommentInput/CommentInput';
 import Comment from '../../Components/Comment/Comment';
+import axios from 'axios';
 
 const RecipeDetails = () => {
-	const dish = {
-		id: 2,
-		name: 'Chicken Tikka Masala',
-		cuisine: 'Indian',
-		image:
-			'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=384&q=80',
-		ingredients: 'Chicken, yogurt, tomato sauce, spices',
-	};
-	const ingredients = [
-		{ name: 'potato', id: 1 },
-		{ name: 'tomato', id: 2 },
-		{ name: 'oregano', id: 3 },
-		{ name: 'spinach', id: 4 },
-		{ name: 'oat', id: 5 },
-	];
+	const [dish, setDish] = useState([]);
+	const [ingredients, setIngredients] = useState([]);
+	const [images, setImages] = useState([]);
+	const [comments, setComments] = useState([]);
+	const currentUrl = window.location.href;
+	const recipe_id = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
+	const RECIPE_URL = 'http://127.0.0.1:8000/api/recipes/' + recipe_id;
+	useEffect(() => {
+		loadRecipe();
+	}, []);
 
-	const comments = [
-		{
-			username: 'user1',
-			text:
-				'comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi ',
-		},
-		{ username: 'user2', text: 'comment 2' },
-		{ username: 'user3', text: 'comment 3' },
-		{ username: 'user4', text: 'comment 4' },
-		{ username: 'user5', text: 'comment 5' },
-	];
+	async function loadRecipe() {
+		try {
+			const response = await axios.get(RECIPE_URL);
+			if (response) {
+				const recipe = {
+					id: response.data[0].id,
+					name: response.data[0].name,
+					cuisine: response.data[0].cuisine,
+				};
+				setDish(recipe);
+				setIngredients(response.data[0].recipe_ingredient);
+				setImages(response.data[0].images);
+				const comments = response.data[0].comments.map((comment) => {
+					const user = response.data[0].commenting_users.find(
+						(user) => user.id === comment.user_id
+					);
+					return { username: user.username, text: comment.text };
+				});
+				setComments(comments);
+			}
+		} catch {
+			console.log('failed to load recipes');
+		}
+	}
+
+	// const comments = [
+	// 	{
+	// 		username: 'user1',
+	// 		text:
+	// 			'comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi ',
+	// 	},
+	// 	{ username: 'user2', text: 'comment 2' },
+	// 	{ username: 'user3', text: 'comment 3' },
+	// 	{ username: 'user4', text: 'comment 4' },
+	// 	{ username: 'user5', text: 'comment 5' },
+	// ];
 
 	const url = window.location.href;
 	const handleAddIngredient = (id) => {

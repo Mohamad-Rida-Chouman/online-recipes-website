@@ -11,12 +11,18 @@ const RecipeDetails = () => {
 	const [ingredients, setIngredients] = useState([]);
 	const [images, setImages] = useState([]);
 	const [comments, setComments] = useState([]);
+	const [liked, setLiked] = useState(false);
 	const currentUrl = window.location.href;
 	const recipe_id = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
 	const RECIPE_URL = 'http://127.0.0.1:8000/api/recipes/' + recipe_id;
 	const COMMENT_URL = 'http://127.0.0.1:8000/api/comment/' + recipe_id;
+	const LIKED_URL = 'http://127.0.0.1:8000/api/liked/' + recipe_id;
+	const LIKE_URL = 'http://127.0.0.1:8000/api/like/' + recipe_id;
+	const UNLIKE_URL = 'http://127.0.0.1:8000/api/unlike/' + recipe_id;
+
 	useEffect(() => {
 		loadRecipe();
+		checkIfLiked();
 	}, []);
 
 	async function loadRecipe() {
@@ -43,11 +49,25 @@ const RecipeDetails = () => {
 			console.log('failed to load recipe');
 		}
 	}
-
+	async function checkIfLiked() {
+		try {
+			const token = localStorage.getItem('access_token');
+			const config = {
+				headers: { Authorization: `Bearer ${token}` },
+			};
+			const response = await axios.get(LIKED_URL, config);
+			if (response.data.value) {
+				//it is liked previously
+				setLiked(true);
+				document.getElementById('switch').checked = true;
+			}
+		} catch {
+			console.log('failed');
+		}
+	}
 	async function onCommentSubmit(inputComment) {
 		try {
 			const token = localStorage.getItem('access_token');
-			console.log('token: ' + token);
 			const config = {
 				headers: { Authorization: `Bearer ${token}` },
 			};
@@ -76,6 +96,51 @@ const RecipeDetails = () => {
 			addButton.innerHTML = '+';
 		}
 	};
+
+	async function likeRecipe() {
+		try {
+			const token = localStorage.getItem('access_token');
+			const config = {
+				headers: { Authorization: `Bearer ${token}` },
+			};
+
+			const response = await axios.get(LIKE_URL, config);
+
+			if (response) {
+				console.log(response);
+				loadRecipe();
+			}
+		} catch {
+			console.log('failed to add comment');
+		}
+	}
+
+	async function unlikeRecipe() {
+		try {
+			const token = localStorage.getItem('access_token');
+			const config = {
+				headers: { Authorization: `Bearer ${token}` },
+			};
+
+			const response = await axios.get(UNLIKE_URL, config);
+
+			if (response) {
+				console.log(response);
+				loadRecipe();
+			}
+		} catch {
+			console.log('failed to add comment');
+		}
+	}
+
+	function handleChangeLike() {
+		const likeButton = document.getElementById('switch');
+		if (likeButton.checked) {
+			likeRecipe();
+		} else {
+			unlikeRecipe();
+		}
+	}
 	return (
 		<div className="sidebar-content-container flex flex-col justify-center align-center width-100 gap-s">
 			<h2 className="no-margin">{dish.name}</h2>
@@ -105,7 +170,7 @@ const RecipeDetails = () => {
 			</div>
 			<div className="social-container flex gap-m">
 				<div className="love">
-					<input id="switch" type="checkbox" />
+					<input id="switch" type="checkbox" onChange={handleChangeLike} />
 					<label className="love-heart" htmlFor="switch">
 						<i className="left"></i>
 						<i className="right"></i>

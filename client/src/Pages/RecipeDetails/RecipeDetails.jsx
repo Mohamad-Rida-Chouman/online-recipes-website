@@ -14,6 +14,7 @@ const RecipeDetails = () => {
 	const currentUrl = window.location.href;
 	const recipe_id = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
 	const RECIPE_URL = 'http://127.0.0.1:8000/api/recipes/' + recipe_id;
+	const COMMENT_URL = 'http://127.0.0.1:8000/api/comment/' + recipe_id;
 	useEffect(() => {
 		loadRecipe();
 	}, []);
@@ -39,21 +40,32 @@ const RecipeDetails = () => {
 				setComments(comments);
 			}
 		} catch {
-			console.log('failed to load recipes');
+			console.log('failed to load recipe');
 		}
 	}
 
-	// const comments = [
-	// 	{
-	// 		username: 'user1',
-	// 		text:
-	// 			'comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi comment 1 hihihihiihihihihihihihihi ',
-	// 	},
-	// 	{ username: 'user2', text: 'comment 2' },
-	// 	{ username: 'user3', text: 'comment 3' },
-	// 	{ username: 'user4', text: 'comment 4' },
-	// 	{ username: 'user5', text: 'comment 5' },
-	// ];
+	async function onCommentSubmit(inputComment) {
+		try {
+			const token = localStorage.getItem('access_token');
+			console.log('token: ' + token);
+			const config = {
+				headers: { Authorization: `Bearer ${token}` },
+			};
+
+			const bodyParameters = {
+				comment: inputComment,
+			};
+
+			const response = await axios.post(COMMENT_URL, bodyParameters, config);
+
+			if (response) {
+				console.log(response);
+				loadRecipe();
+			}
+		} catch {
+			console.log('failed to add comment');
+		}
+	}
 
 	const url = window.location.href;
 	const handleAddIngredient = (id) => {
@@ -101,7 +113,7 @@ const RecipeDetails = () => {
 						<div className="round"></div>
 					</label>
 				</div>
-				<CommentInput />
+				<CommentInput inputChange={onCommentSubmit} />
 				<SocialMedia url={url} />
 			</div>
 			<div className="comments-list-continer width-80 flex flex-col align-center">

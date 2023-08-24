@@ -24,8 +24,8 @@ const LoginPopup = (props) => {
 
 			if (response) {
 				e.preventDefault();
-				localStorage.setItem('access_token', response.data.authorization);
-				console.log('User Logged In!');
+				localStorage.setItem('access_token', response.data.data.token);
+				console.log(response.data.data);
 				props.closePopup();
 			}
 		} catch {

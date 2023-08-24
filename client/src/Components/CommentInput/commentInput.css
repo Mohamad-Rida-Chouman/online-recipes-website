@@ -1,43 +1,46 @@
-.Message {
-    width: 250px;
-    height: 35px;
-    border-radius: 8px;
-    background-color: #d3a738;
-    transform: translate(0px, 0px);
-    box-shadow: 3px 3px #f0e1bc;
-  }
-  
-  .MsgInput {
-    font-size: 14px;
-    border-radius: 5px;
-    background-color: #d3a738;
-    border: none;
-    outline: none;
-    width: 200px;
-    height: 25px;
-    transform: translate(3px, -2px);
-    color: white;
-    font-weight: bold;
-  }
-  
-  .SendSVG {
-    width: 25px;
-    height: 25px;
-    border-width: 40px;
-    transform: translate(15px, 3px);
-    background-size: 8px;
-    border-radius: 8px;
-    transition: 0.3s;
-  }
-  
-  .SendSVG:hover {
-    background-color: #f0e1bc;
-  }
-  
-  .l {
-    position: absolute;
-    width: 1%;
-    height: 25px;
-    background-color: #f0e1bc;
-    transform: translate(-15px, 3px);
-  }
+.Comment {
+	width: 250px;
+	height: 35px;
+	border-radius: 8px;
+	background-color: #d3a738;
+	transform: translate(0px, 0px);
+	box-shadow: 3px 3px #f0e1bc;
+}
+
+.CommentInput {
+	font-size: 14px;
+	border-radius: 5px;
+	background-color: #d3a738;
+	border: none;
+	outline: none;
+	width: 200px;
+	height: 25px;
+	transform: translate(3px, -2px);
+	color: white;
+	font-weight: bold;
+}
+
+.SendSVG {
+  cursor: pointer;
+  background-image: url(https://www.svgrepo.com/show/533310/send-alt-1.svg);
+	width: 25px;
+	height: 25px;
+	border-width: 40px;
+	transform: translate(15px, 3px);
+	background-size:cover;
+	border-radius: 8px;
+	transition: 0.3s;
+}
+
+.SendSVG:hover {
+	background-color: #f0e1bc;
+}
+
+.l {
+	position: absolute;
+	width: 1%;
+	height: 25px;
+	background-color: #f0e1bc;
+	transform: translate(-15px, 3px);
+}
+

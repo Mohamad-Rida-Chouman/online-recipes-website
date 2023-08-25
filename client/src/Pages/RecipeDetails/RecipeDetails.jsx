@@ -5,13 +5,15 @@ import SocialMedia from '../../Components/SocialMedia/SocialMedia';
 import CommentInput from '../../Components/CommentInput/CommentInput';
 import Comment from '../../Components/Comment/Comment';
 import axios from 'axios';
+import ImageSlider from '../../Components/ImageSlider/ImageSlider';
 
 const RecipeDetails = () => {
 	const [dish, setDish] = useState([]);
 	const [ingredients, setIngredients] = useState([]);
-	const [images, setImages] = useState([]);
+	const [loadedImages, setLoadedImages] = useState([]);
 	const [comments, setComments] = useState([]);
 	const [liked, setLiked] = useState(false);
+	const [axiosResponse, setAxiosResponse] = useState();
 	const currentUrl = window.location.href;
 	const recipe_id = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
 	const RECIPE_URL = 'http://127.0.0.1:8000/api/recipes/' + recipe_id;
@@ -19,7 +21,7 @@ const RecipeDetails = () => {
 	const LIKED_URL = 'http://127.0.0.1:8000/api/liked/' + recipe_id;
 	const LIKE_URL = 'http://127.0.0.1:8000/api/like/' + recipe_id;
 	const UNLIKE_URL = 'http://127.0.0.1:8000/api/unlike/' + recipe_id;
-
+	const imageFiles = [];
 	useEffect(() => {
 		loadRecipe();
 		checkIfLiked();
@@ -36,7 +38,9 @@ const RecipeDetails = () => {
 				};
 				setDish(recipe);
 				setIngredients(response.data[0].recipe_ingredient);
-				setImages(response.data[0].images);
+
+				// loadedImages = response.data[0].images.map((item) => item.image);
+
 				const comments = response.data[0].comments.map((comment) => {
 					const user = response.data[0].commenting_users.find(
 						(user) => user.id === comment.user_id
@@ -142,51 +146,60 @@ const RecipeDetails = () => {
 		}
 	}
 	return (
-		<div className="sidebar-content-container flex flex-col justify-center align-center width-100 gap-s">
-			<h2 className="no-margin">{dish.name}</h2>
-			<h3 className="no-margin">{dish.cuisine}</h3>
-			<h4 className="flex justify-center align-center no-margin">
-				Ingredients:
-			</h4>
-			<div className="ingredients-list flex flex-col width-40 gap-s">
-				{ingredients.map((ingredient) => (
-					<label
-						key={ingredient.id}
-						className="ingredient-label flex justify-between"
-					>
-						<span>{ingredient.name}</span>
-						<button
-							className="add-button"
-							type="submit"
-							name="ingredient"
-							value={ingredient.id}
-							id={'button' + ingredient.id}
-							onClick={() => handleAddIngredient(ingredient.id)}
-						>
-							+
-						</button>
-					</label>
-				))}
+		<div className="main-details-container flex flex-col gap-l">
+			<div className="upper-details-container flex justify-center">
+				<ImageSlider />
 			</div>
-			<div className="social-container flex gap-m">
-				<div className="love">
-					<input id="switch" type="checkbox" onChange={handleChangeLike} />
-					<label className="love-heart" htmlFor="switch">
-						<i className="left"></i>
-						<i className="right"></i>
-						<i className="bottom"></i>
-						<div className="round"></div>
-					</label>
+			<div className="lower-details-container flex justify-center align-center width-100 gap-m">
+				<div className="left-details-container flex flex-col align-center gap-m">
+					<h2 className="no-margin">{dish.name}</h2>
+					<h3 className="no-margin">{dish.cuisine}</h3>
+					<h4 className="flex justify-center align-center no-margin">
+						Ingredients:
+					</h4>
+					<div className="ingredients-list flex flex-col width-40 gap-s">
+						{ingredients.map((ingredient) => (
+							<label
+								key={ingredient.id}
+								className="ingredient-label flex justify-between"
+							>
+								<span>{ingredient.name}</span>
+								<button
+									className="add-button"
+									type="submit"
+									name="ingredient"
+									value={ingredient.id}
+									id={'button' + ingredient.id}
+									onClick={() => handleAddIngredient(ingredient.id)}
+								>
+									+
+								</button>
+							</label>
+						))}
+					</div>
 				</div>
-				<CommentInput inputChange={onCommentSubmit} />
-				<SocialMedia url={url} />
-			</div>
-			<div className="comments-list-continer width-80 flex flex-col align-center">
-				<h4>Comments:</h4>
-				<div className="comment-list flex flex-col width-80 gap-s">
-					{comments.map((comment) => (
-						<Comment name={comment.username} comment={comment.text} />
-					))}
+				<div className="right-details-container flex flex-col align-center justify-center">
+					<div className="social-container flex gap-m">
+						<div className="love">
+							<input id="switch" type="checkbox" onChange={handleChangeLike} />
+							<label className="love-heart" htmlFor="switch">
+								<i className="left"></i>
+								<i className="right"></i>
+								<i className="bottom"></i>
+								<div className="round"></div>
+							</label>
+						</div>
+						<CommentInput inputChange={onCommentSubmit} />
+						<SocialMedia url={url} />
+					</div>
+					<div className="comments-list-continer width-80 flex flex-col align-center">
+						<h4>Comments:</h4>
+						<div className="comment-list flex flex-col width-80 gap-s">
+							{comments.map((comment) => (
+								<Comment name={comment.username} comment={comment.text} />
+							))}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

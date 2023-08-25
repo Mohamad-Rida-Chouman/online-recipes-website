@@ -112,3 +112,19 @@ input:checked + .love-heart .bottom {
 	top: 3px;
 	border-radius: 0px 0px 0px 4px;
 }
+
+.upper-details-container{
+	flex: 1 1 0;
+}
+
+.lower-details-container{
+	flex: 3 1 0;
+}
+
+.left-details-container{
+	flex: 1 1 0;
+}
+
+.right-details-container{
+	flex: 2 1 0;
+}

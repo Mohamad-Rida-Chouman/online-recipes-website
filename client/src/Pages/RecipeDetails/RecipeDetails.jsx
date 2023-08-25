@@ -21,6 +21,9 @@ const RecipeDetails = () => {
 	const LIKED_URL = 'http://127.0.0.1:8000/api/liked/' + recipe_id;
 	const LIKE_URL = 'http://127.0.0.1:8000/api/like/' + recipe_id;
 	const UNLIKE_URL = 'http://127.0.0.1:8000/api/unlike/' + recipe_id;
+	const ADDTOSL_URL = 'http://127.0.0.1:8000/api/ingToSL/';
+	const REMOVEFROMSL_URL = 'http://127.0.0.1:8000/api/ingFromSL/';
+
 	const imageFiles = [];
 	useEffect(() => {
 		loadRecipe();
@@ -95,8 +98,10 @@ const RecipeDetails = () => {
 	const handleAddIngredient = (id) => {
 		const addButton = document.getElementById('button' + id);
 		if (addButton.innerHTML === '+') {
+			addIngToSL(id);
 			addButton.innerHTML = '-';
 		} else {
+			removeIngFromSL(id);
 			addButton.innerHTML = '+';
 		}
 	};
@@ -115,7 +120,7 @@ const RecipeDetails = () => {
 				loadRecipe();
 			}
 		} catch {
-			console.log('failed to add comment');
+			console.log('failed to like');
 		}
 	}
 
@@ -133,7 +138,43 @@ const RecipeDetails = () => {
 				loadRecipe();
 			}
 		} catch {
-			console.log('failed to add comment');
+			console.log('failed to unlike');
+		}
+	}
+
+	async function addIngToSL(id) {
+		try {
+			const token = localStorage.getItem('access_token');
+			const config = {
+				headers: { Authorization: `Bearer ${token}` },
+			};
+
+			const response = await axios.get(ADDTOSL_URL + id, config);
+
+			if (response) {
+				console.log(response);
+				loadRecipe();
+			}
+		} catch {
+			console.log('failed to add ing to shopping list');
+		}
+	}
+
+	async function removeIngFromSL(id) {
+		try {
+			const token = localStorage.getItem('access_token');
+			const config = {
+				headers: { Authorization: `Bearer ${token}` },
+			};
+
+			const response = await axios.get(REMOVEFROMSL_URL + id, config);
+
+			if (response) {
+				console.log(response);
+				loadRecipe();
+			}
+		} catch {
+			console.log('failed to remove ing from shopping list');
 		}
 	}
 

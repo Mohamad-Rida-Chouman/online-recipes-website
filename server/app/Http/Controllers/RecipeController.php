@@ -140,4 +140,5 @@ class RecipeController extends Controller
         $user_id = Auth::id();
         $recipe->liked()->detach($user_id);
     }
+
 }

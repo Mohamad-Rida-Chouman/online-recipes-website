@@ -30,6 +30,8 @@ Route::post('comment/{recipe}', [RecipeController::class, 'addComment']);
 Route::get('liked/{recipe}', [RecipeController::class, 'checkLiked']);
 Route::get('like/{recipe}', [RecipeController::class, 'likeRecipe']);
 Route::get('unlike/{recipe}', [RecipeController::class, 'unlikeRecipe']);
+Route::get('ingToSL/{ingredient}', [AuthController::class, 'addIngredientToSL']);
+Route::get('ingFromSL/{ingredient}', [AuthController::class, 'removeIngredientFromSL']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

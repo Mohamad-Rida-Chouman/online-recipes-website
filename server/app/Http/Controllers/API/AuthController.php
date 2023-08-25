@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -89,5 +90,14 @@ class AuthController extends Controller
             'status' => 'success',
             'data' => $user
         ]);
+    }
+
+    public function addIngredientToSL(Request $request, Ingredient $ingredient){
+        $user_id = Auth::id();
+        $ingredient->ShoppingLists()->attach($user_id);
+    }
+    public function removeIngredientFromSL(Request $request, Ingredient $ingredient){
+        $user_id = Auth::id();
+        $ingredient->ShoppingLists()->detach($user_id);
     }
 }

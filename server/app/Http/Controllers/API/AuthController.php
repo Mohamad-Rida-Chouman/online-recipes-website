@@ -100,4 +100,16 @@ class AuthController extends Controller
         $user_id = Auth::id();
         $ingredient->ShoppingLists()->detach($user_id);
     }
+    public function getShoppingList(Request $request){
+        $user_id = Auth::id();
+
+        $ings = Ingredient::whereHas('ShoppingLists', function ($query) use ($user_id) {
+            $query->where('user_id', $user_id);
+        })->get();
+
+        return response()->json([
+            'status' => 'Success',
+            'value' => $ings,
+        ], 200);
+    }
 }

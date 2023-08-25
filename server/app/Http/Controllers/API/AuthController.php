@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
+use App\Models\Schedule;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -108,5 +109,24 @@ class AuthController extends Controller
         })->get();
 
         return $ings;
+    }
+
+    public function assignSchedule(Request $request) {
+        $user_id = Auth::id();
+
+        $scheduleData = $request->get('schedule');
+        $schedule = new Schedule;
+        $schedule->name = $scheduleData->name;
+        $schedule->user_id = $user_id;
+        $schedule->date = $scheduleData->date;
+        $schedule->save();
+    }
+
+    public function getSchedules(Request $request) {
+        $user_id = Auth::id();
+
+        $schedules = User::with('Schedules')->get();
+        return $schedules;
+    
     }
 }

@@ -33,6 +33,8 @@ Route::get('unlike/{recipe}', [RecipeController::class, 'unlikeRecipe']);
 Route::get('ingToSL/{ingredient}', [AuthController::class, 'addIngredientToSL']);
 Route::get('ingFromSL/{ingredient}', [AuthController::class, 'removeIngredientFromSL']);
 Route::get('getSL', [AuthController::class, 'getShoppingList']);
+Route::get('getSchedules', [AuthController::class, 'getSchedules']);
+Route::post('addEventRecipe', [AuthController::class, 'assignSchedule']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

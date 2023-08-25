@@ -42,7 +42,7 @@ const RecipeDetails = () => {
 				setDish(recipe);
 				setIngredients(response.data[0].recipe_ingredient);
 
-				// loadedImages = response.data[0].images.map((item) => item.image);
+				// loadedImages = response.data.value[0].images.map((item) => item.image);
 
 				const comments = response.data[0].comments.map((comment) => {
 					const user = response.data[0].commenting_users.find(

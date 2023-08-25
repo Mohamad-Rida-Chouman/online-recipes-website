@@ -107,9 +107,6 @@ class AuthController extends Controller
             $query->where('user_id', $user_id);
         })->get();
 
-        return response()->json([
-            'status' => 'Success',
-            'value' => $ings,
-        ], 200);
+        return $ings;
     }
 }

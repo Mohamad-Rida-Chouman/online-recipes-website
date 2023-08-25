@@ -2,3 +2,10 @@ ul{
     list-style-type: none;
     padding: 0;
 }
+
+.remove-button{
+	background-color: #d3a738;
+	color: #000000;
+	border-radius: 50px;
+	cursor: pointer;
+}
